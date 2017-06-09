@@ -38,7 +38,7 @@ void setup() {
   AudioMemory(8);
 
   sgtl5000_1.enable();
-  sgtl5000_1.volume(1.0);
+  sgtl5000_1.volume(0.6);
 
   SPI.setMOSI(7);
   SPI.setSCK(14);
