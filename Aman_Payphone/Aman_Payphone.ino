@@ -25,11 +25,14 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=240,153
 boolean paused = false;
 
 int phoneSwitch = 2;
+int ringPin = 13;
 
 void setup() {
   Serial.begin(9600);
   pinMode(phoneSwitch, INPUT_PULLUP);
-
+  pinMode(ringPin, OUTPUT);
+  digitalWrite(ringPin, LOW);
+  
   // Audio connections require memory to work.  For more
   // detailed information, see the MemoryAndCpuUsage example
   AudioMemory(8);
@@ -49,6 +52,13 @@ void setup() {
   
 }
 
+unsigned long interval = 0;
+unsigned long curTime = 0;
+unsigned long prevTime = 0;
+
+int ringCounter = 0;
+unsigned int ringState = 1; 
+
 void playFile(const char *filename)
 {
   Serial.print("Playing file: ");
@@ -60,16 +70,87 @@ void playFile(const char *filename)
 
   // Simply wait for the file to finish playing.
   while (playMp31.isPlaying()) {
+    
     if(digitalRead(phoneSwitch)){
       playMp31.pause(true);
+
+     if(ringCounter > 12)
+     {
+        if(millis() - prevTime > 30000)
+        {
+          ringState = 1;
+          ringCounter = 0;
+          prevTime = millis();
+        }
+     }
+     else
+     {
+        if(ringState == 1)
+        {
+          ringPhone();
+          if(millis() - prevTime > 500)
+          {
+            prevTime = millis();
+            ringState = 2;
+          }
+        }
+        else if (ringState == 2)
+        {
+          if(millis() - prevTime > 500)
+          {
+            ringState = 3;
+            prevTime = millis();  
+          }
+        }
+        else if(ringState == 3)
+        {
+          ringPhone();
+          if(millis() - prevTime > 500)
+          {
+            prevTime = millis();
+            ringState = 4;
+          }
+        }
+        else if(ringState == 4)
+        {
+          if(millis() - prevTime > 1000)
+          {
+            ringState = 1;
+            prevTime = millis();  
+            ringCounter++;
+          }
+        }
+        else 
+        {
+          if(millis() - prevTime > 10000)
+          {
+            ringState = 1;
+            prevTime = millis();
+          }
+        }
+     }
+    
+    
     }
     else{
       playMp31.pause(false);
+      ringState = 0;
+      ringCounter = 0;
+      prevTime = millis();
     }
-//	 delay(1000);
+
+
   }
+
 }
 
+
+void ringPhone(){
+  digitalWrite(ringPin, HIGH);
+  delay(25);
+  digitalWrite(ringPin, LOW);
+  delay(25);
+}
 
 void pausetrack(){
   if(paused){
@@ -83,7 +164,7 @@ void pausetrack(){
 
 void loop() {
 
-  playFile("whale.mp3");  
+  playFile("aman.mp3");  
 
   
 }
