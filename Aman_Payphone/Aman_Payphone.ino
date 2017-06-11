@@ -72,7 +72,9 @@ void playFile(const char *filename)
   while (playMp31.isPlaying()) {
     
     if(digitalRead(phoneSwitch)){
-      playMp31.pause(true);
+       //playMp31.pause(true);
+
+    sgtl5000_1.volume(0.0);
 
      if(ringCounter > 10)
      {
@@ -116,7 +118,8 @@ void playFile(const char *filename)
     
     }
     else{
-      playMp31.pause(false);
+      //playMp31.pause(false);
+      sgtl5000_1.volume(0.75);
       ringState = 0;
       ringCounter = 0;
       prevTime = millis();
@@ -147,12 +150,16 @@ void pausetrack(){
 
 void loop() {
 
-  playFile("short_loop1.mp3");  
-  playFile("short_loop2.mp3");  
-  playFile("short_loop3.mp3");  
-  playFile("short_loop4.mp3");  
-  playFile("short_loop5.mp3");  
-  playFile("short_loop6.mp3");  
+  // playFile("short_loop1.mp3");  
+  // playFile("short_loop2.mp3");  
+  // playFile("short_loop3.mp3");  
+  // playFile("short_loop4.mp3");  
+  // playFile("short_loop5.mp3");  
+  // playFile("short_loop6.mp3");  
+
+  //playFile("nokiaTune.mp3");
+  playFile("aman.mp3");
+  delay(500);
 
   
 }
