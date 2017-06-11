@@ -28,6 +28,8 @@ int phoneSwitch = 2;
 int ringPin = 13;
 
 void setup() {
+  WaitTime = random(360000, 480000);
+  
   Serial.begin(9600);
   pinMode(phoneSwitch, INPUT_PULLUP);
   pinMode(ringPin, OUTPUT);
@@ -59,6 +61,8 @@ unsigned long prevTime = 0;
 int ringCounter = 0;
 unsigned int ringState = 1; 
 
+unsigned long WaitTime = 0;
+
 void playFile(const char *filename)
 {
   Serial.print("Playing file: ");
@@ -78,7 +82,7 @@ void playFile(const char *filename)
 
      if(ringCounter > 10)
      {
-        if(millis() - prevTime > 420000)
+        if(millis() - prevTime > WaitTime)
         {
           ringState = 1;
           ringCounter = 0;
@@ -123,6 +127,8 @@ void playFile(const char *filename)
       ringState = 0;
       ringCounter = 0;
       prevTime = millis();
+
+      WaitTime = random(360000, 480000);
     }
 
 
