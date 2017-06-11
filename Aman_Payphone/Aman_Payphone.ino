@@ -74,7 +74,7 @@ void playFile(const char *filename)
     if(digitalRead(phoneSwitch)){
       playMp31.pause(true);
 
-     if(ringCounter > 24)
+     if(ringCounter > 10)
      {
         if(millis() - prevTime > 420000)
         {
@@ -88,7 +88,7 @@ void playFile(const char *filename)
         if(ringState == 1)
         {
           ringPhone();
-          if(millis() - prevTime > 500)
+          if(millis() - prevTime > 2000)
           {
             prevTime = millis();
             ringState = 2;
@@ -96,24 +96,7 @@ void playFile(const char *filename)
         }
         else if (ringState == 2)
         {
-          if(millis() - prevTime > 500)
-          {
-            ringState = 3;
-            prevTime = millis();  
-          }
-        }
-        else if(ringState == 3)
-        {
-          ringPhone();
-          if(millis() - prevTime > 500)
-          {
-            prevTime = millis();
-            ringState = 4;
-          }
-        }
-        else if(ringState == 4)
-        {
-          if(millis() - prevTime > 1000)
+          if(millis() - prevTime > 4000)
           {
             ringState = 1;
             prevTime = millis();  
