@@ -74,9 +74,9 @@ void playFile(const char *filename)
     if(digitalRead(phoneSwitch)){
       playMp31.pause(true);
 
-     if(ringCounter > 12)
+     if(ringCounter > 24)
      {
-        if(millis() - prevTime > 30000)
+        if(millis() - prevTime > 420000)
         {
           ringState = 1;
           ringCounter = 0;
