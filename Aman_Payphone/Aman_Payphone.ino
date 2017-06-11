@@ -147,7 +147,12 @@ void pausetrack(){
 
 void loop() {
 
-  playFile("aman.mp3");  
+  playFile("short_loop1.mp3");  
+  playFile("short_loop2.mp3");  
+  playFile("short_loop3.mp3");  
+  playFile("short_loop4.mp3");  
+  playFile("short_loop5.mp3");  
+  playFile("short_loop6.mp3");  
 
   
 }
