@@ -12,6 +12,9 @@
 
 #include <play_sd_mp3.h>
 
+#define WAIT_TIME_RANGE_LOW  2400000  // 40 Minutes
+#define WAIT_TIME_RANGE_HIGH 3000000  // 50 Minutes
+
 
 // GUItool: begin automatically generated code
 AudioPlaySdMp3           playMp31;       //xy=154,78
@@ -24,11 +27,11 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=240,153
 
 boolean paused = false;
 
-int phoneSwitch = 2;
+int phoneSwitch = 2; 
 int ringPin = 13;
 
 void setup() {
-  WaitTime = random(360000, 480000);
+  WaitTime = random(WAIT_TIME_RANGE_LOW, WAIT_TIME_RANGE_HIGH);
   
   Serial.begin(9600);
   pinMode(phoneSwitch, INPUT_PULLUP);
@@ -128,7 +131,7 @@ void playFile(const char *filename)
       ringCounter = 0;
       prevTime = millis();
 
-      WaitTime = random(360000, 480000);
+      WaitTime = random(WAIT_TIME_RANGE_LOW, WAIT_TIME_RANGE_HIGH);
     }
 
 
