@@ -27,6 +27,9 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=240,153
 
 boolean paused = false;
 
+
+unsigned long WaitTime = 0;
+
 int phoneSwitch = 2; 
 int ringPin = 13;
 
@@ -63,8 +66,6 @@ unsigned long prevTime = 0;
 
 int ringCounter = 0;
 unsigned int ringState = 1; 
-
-unsigned long WaitTime = 0;
 
 void playFile(const char *filename)
 {
