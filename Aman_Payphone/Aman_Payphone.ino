@@ -15,6 +15,8 @@
 #define WAIT_TIME_RANGE_LOW  2400000  // 40 Minutes
 #define WAIT_TIME_RANGE_HIGH 3000000  // 50 Minutes
 
+#define WAIT_TIME 2700000L
+
 
 // GUItool: begin automatically generated code
 AudioPlaySdMp3           playMp31;       //xy=154,78
@@ -34,7 +36,7 @@ int phoneSwitch = 2;
 int ringPin = 13;
 
 void setup() {
-  WaitTime = random(WAIT_TIME_RANGE_LOW, WAIT_TIME_RANGE_HIGH);
+  WaitTime = 0;//random(WAIT_TIME_RANGE_LOW, WAIT_TIME_RANGE_HIGH);
   
   Serial.begin(9600);
   pinMode(phoneSwitch, INPUT_PULLUP);
@@ -129,10 +131,10 @@ void playFile(const char *filename)
       //playMp31.pause(false);
       sgtl5000_1.volume(0.75);
       ringState = 0;
-      ringCounter = 0;
+      ringCounter = 11;
       prevTime = millis();
 
-      WaitTime = random(WAIT_TIME_RANGE_LOW, WAIT_TIME_RANGE_HIGH);
+      WaitTime = WAIT_TIME;//random(WAIT_TIME_RANGE_LOW, WAIT_TIME_RANGE_HIGH);
     }
 
 
@@ -143,9 +145,9 @@ void playFile(const char *filename)
 
 void ringPhone(){
   digitalWrite(ringPin, HIGH);
-  delay(25);
+  delay(35);
   digitalWrite(ringPin, LOW);
-  delay(25);
+  delay(35);
 }
 
 void pausetrack(){
@@ -168,8 +170,12 @@ void loop() {
   // playFile("short_loop6.mp3");  
 
   //playFile("nokiaTune.mp3");
+  
+
   playFile("aman.mp3");
   delay(500);
+
+  //ringPhone();
 
   
 }
